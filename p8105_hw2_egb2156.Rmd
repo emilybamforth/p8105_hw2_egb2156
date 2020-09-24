@@ -1,0 +1,12 @@
+---
+title: "Homework 2"
+author: Emily Bamforth
+output: github_document
+---
+
+```{r setup}
+library(tidyverse)
+library(readxl)
+```
+
+
