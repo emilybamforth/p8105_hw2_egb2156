@@ -13,7 +13,7 @@ library(readxl)
 
 Read the Mr. Trashwheel dataset.
 
-```{r}
+```{r trashwheel_df}
 trashwheel_df =
   read_xlsx("./data/Trash-Wheel-Collection-Totals-8-6-19.xlsx",
   sheet = "Mr. Trash Wheel",
@@ -28,7 +28,7 @@ trashwheel_df =
 
 Read precipitation data!
 
-```{r}
+```{r precip_2018}
 precip_2018 =
   read_excel(
     "./data/Trash-Wheel-Collection-Totals-8-6-19.xlsx",
@@ -41,7 +41,7 @@ precip_2018 =
   relocate(year)
 ```
 
-```{r}
+```{r precip_2017}
 precip_2017 =
   read_excel(
     "./data/Trash-Wheel-Collection-Totals-8-6-19.xlsx",
@@ -56,7 +56,7 @@ precip_2017 =
 
 Now combine annual precipitation.
 
-```{r}
+```{r precip_combined}
 month_df =
   tibble(
     month = 1:12,
@@ -69,4 +69,6 @@ precip_df =
 left_join(precip_df, month_df, by = "month")
 ```
 
-This dataset contains information about Mr. Trashwheel, a trash collector in Baltimore, MD, including year, month, and trash collected, including the types of trash collected. There are `r nrow(trashwheel_df)` rows in the final dataset. Precipitation data by month is also included in additional sheets.
+This dataset contains information about Mr. Trashwheel, a trash collector in Baltimore, MD, including the year, month, weight and types of trash collected. There are `r nrow(trashwheel_df)` rows in the final dataset. We also have information about precipitation by year and by month. For precipitation across 2017 and 2018, we have `r nrow(precip_df)` rows in the final dataset. There were 
+
+
