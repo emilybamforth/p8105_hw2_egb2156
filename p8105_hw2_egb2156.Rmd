@@ -79,5 +79,17 @@ mean(pull(precip_2018, total))
 
 This dataset contains information about Mr. Trashwheel, a trash collector in Baltimore, MD, including the `year`, `month`, `weight_tons` of dumpsters filled, and the types of trash collected. There are `r nrow(trashwheel_df)` rows in the final Mr. Trashwheel dataset. The median number of `sports_balls` in a dumpster in 2017 was `8` balls. We also have information about precipitation by `year` and by `month`. For precipitation across 2017 and 2018, we have `r nrow(precip_df)` rows in the final dataset. The average rainfall in 2017 was `2.74` inches; in 2018, the average rainfall was `5.86` inches. 
 
+## Problem 2
 
+Read data.
 
+```{r station_df}
+station_df =
+  read_csv("./data/NYC_Transit_Subway_Entrance_And_Exit_Data.csv") %>% 
+  janitor::clean_names() %>% 
+  select(line:ada) %>% 
+  select(-exit_only, -staffing, -staff_hours) %>%
+  mutate(entry = ifelse(entry == "YES", TRUE, FALSE))
+```
+
+This dataset looks at the entrances and exits of NYC subway stations. There are `r nrow(station_df)` rows and `r ncol(station_df)` columns in the dataset. The dataset includes information about routes served, entrance types and whether they are ADA-compliant. So far we have read the data, cleaned the variable names using `clean_names`, selected the variables we wanted to look at and converted `entry` into a logical variable. However, this dataset is not yet tidy, since there is not one observation per row. Instead, we have multiple observations for each subway station.
