@@ -139,3 +139,17 @@ ada_a_stations = long_df %>%
 ```
 
 Out of 273 distinct stations that serve the A train, 107 are ADA compliant.
+
+## Problem 3
+
+Read data:
+
+```{r read pols-month}
+pols_month = read_csv("data/fivethirtyeight_datasets/pols-month.csv") %>% 
+  separate(mon, c("year","month","day")) %>% 
+  mutate(month = month.name[as.integer(month)]) %>% 
+  mutate(president = ifelse(prez_dem, "dem", "gop")) %>% 
+  select(-prez_dem, -prez_gop, -day)
+```
+
+
