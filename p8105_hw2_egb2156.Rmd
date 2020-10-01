@@ -94,6 +94,8 @@ station_df =
 
 This dataset looks at the entrances and exits of NYC subway stations. There are `r nrow(station_df)` rows and `r ncol(station_df)` columns in the dataset. The dataset includes information about routes served, entrance types and whether they are ADA-compliant. So far we have read the data, cleaned the variable names using `clean_names`, selected the variables we wanted to look at and converted `entry` into a logical variable. However, this dataset is not yet tidy, since there is not one observation per row. Instead, we have multiple observations for each subway station.
 
+Answering some more questions:
+
 ```{r}
 distinct_stations = station_df %>% 
   distinct(line, station_name) %>%
@@ -115,4 +117,25 @@ no_vending_with_entry = station_df %>%
   nrow()
 ```
 
-In this dataset, there are 465 distinct stations. 84 stations are ADA-compliant. Out of 9 stations without vending, 5 allow entrance. 
+In this dataset, there are 465 distinct stations. 84 stations are ADA-compliant. Out of 9 stations without vending, 5 allow entrance.
+
+Reformatting data:
+
+```{r route_number_name}
+long_df = station_df %>%
+  mutate_at(vars(starts_with("route")), as.character) %>%
+  pivot_longer(cols  = starts_with("route"),
+               names_to = "route_number",
+               names_prefix = "route",
+               values_to = "route_name")
+
+a_stations = long_df %>%
+  filter(route_name == "A") %>%
+  nrow()
+
+ada_a_stations = long_df %>%
+  filter(route_name == "A" & ada == TRUE) %>%
+  nrow()
+```
+
+Out of 273 distinct stations that serve the A train, 107 are ADA compliant.
